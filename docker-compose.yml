@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+  kibana:
+      image: kibana
+      networks: 
+        - data-stream
+      ports:
+        - 5601:5601
+      environment:
+        - ELASTICSEARCH_URL=http://elasticsearch:9200
+
+  elasticsearch:
+      image: elasticsearch 
+      networks: 
+        - data-stream
+      ports:
+        - 9200:9200
+
+  spark:
+      image: sequenceiq/spark:1.6.0
+      hostname: sandbox
+      command: bash
+      networks: 
+       - data-stream
+      ports:
+        - 8088:8088
+        - 8042:8042
+        - 4040:4040
+      tty: true
+
+  kafka:
+      image: spotify/kafka
+      volumes:
+        - ./target/scala-2.10:/app
+      networks: 
+        - data-stream
+      environment: 
+        - KAFKA=localhost:9092
+        - ZOOKEEPER=localhost:2181
+      links:
+        - spark
+
+networks: 
+  data-stream:
+    driver: bridge
