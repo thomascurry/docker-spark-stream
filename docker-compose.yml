@@ -1,9 +1,9 @@
-version: '3.1'
+version: '2'
 
 services:
 
   kibana:
-      image: kibana
+      image: docker.elastic.co/kibana/kibana-oss:6.0.0
       networks: 
         - data-stream
       ports:
@@ -12,11 +12,22 @@ services:
         - ELASTICSEARCH_URL=http://elasticsearch:9200
 
   elasticsearch:
-      image: elasticsearch 
+      image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.0.0
       networks: 
         - data-stream
       ports:
         - 9200:9200
+        - 9300:9300
+      environment:
+        - cluster.name=es-cluster
+        - "ES_KAVA_OPTS=Xms1g -Xmx1g"
+      ulimits:
+        memlock:
+          soft: -1
+          hard: -1
+        nofile:
+          soft: 65536
+          hard: 65536
 
   spark:
       image: sequenceiq/spark:1.6.0
