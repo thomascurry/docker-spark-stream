@@ -1,15 +1,10 @@
+PUT _template/template_1
 {
-  "template_1": {
-    "order": 0,
-    "index_patterns": [
-      "tweets*"
-    ],
-    "settings": {
-      "index": {
-        "number_of_shards": "1"
-      }
-    },
-    "mappings": {
+  "index_patterns": ["tweets*"],
+  "settings": {
+    "number_of_shards": 1
+  },
+  "mappings": {
       "hashgeo": {
         "_source": {
           "enabled": false
@@ -38,7 +33,5 @@
           }
         }
       }
-    },
-    "aliases": {}
   }
 }
