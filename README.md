@@ -32,7 +32,3 @@ Ideally, I would have liked to got to a solution where both a assembled example 
 - Complete solution in a manner to this one but parsing raw json files
 - Get elasticsearch templating for dataframes built into `docker-compose` container
 - Use [Spark Notebooks](http://spark-notebook.io/) to potentially present some of this in a nicer way (also has map widgets that can plot geo data)
-
-
-Thanks for the module, i learned a lot! :)
-
